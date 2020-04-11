@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.example.demo.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,57 +50,3 @@ public class Rank {
         return id;
     }
 }
-=======
-package com.example.demo.model;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity(name = "RANKS")
-public class Rank {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-    private String name;
-    private int deposit;
-    private int price;
-
-    Rank(){}
-
-    public Rank(String name, int deposit, int price) {
-        this.name = name;
-        this.deposit = deposit;
-        this.price = price;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(int deposit) {
-        this.deposit = deposit;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-}
->>>>>>> 9437c9efa08817ba060e4dd81a4c945cf1f836ea
