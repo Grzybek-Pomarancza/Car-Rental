@@ -1,28 +1,30 @@
-import React from "react";
-import Form from "react-bootstrap/Form";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from "react-bootstrap/Button";
-import "./styles/login.css"
+import React, { Component } from "react";
 
-export default function Login() {
-    return (
-        <div className="Login p-2 rounded-lg w-25 h-50 d-flex align-items-center justify-content-center" >
-            <Form  className="w-75 h-auto">
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>E-mail</Form.Label>
-                    <Form.Control required type="email" placeholder="janedoe@email.com" />
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control required type="password" placeholder="Password" />
-                </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Remember me" />
-                </Form.Group>
-                <Button variant="light" type="submit" className="w-100">
-                    Login
-                </Button>
-            </Form>
-        </div>
-    );
+export default class Login extends Component {
+    render() {
+        return (
+            <form>
+                <h3>Login</h3>
+
+                <div className="form-group">
+                    <label>Email address</label>
+                    <input type="email" className="form-control" placeholder="Enter email" />
+                </div>
+
+                <div className="form-group">
+                    <label>Password</label>
+                    <input type="password" className="form-control" placeholder="Enter password" />
+                </div>
+
+                <div className="form-group">
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                    </div>
+                </div>
+
+                <button type="submit" className="btn btn-primary btn-block">Submit</button>
+            </form>
+        );
+    }
 }
