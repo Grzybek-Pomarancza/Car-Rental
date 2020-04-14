@@ -1,14 +1,15 @@
 import React from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Login from "./Components/Login";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Routes from "./Routes";
+
 
 function App() {
-  return (
-    <div className="App d-flex justify-content-center align-items-center ">
-      <Login/>
-    </div>
-  );
+    return (<Router>
+                <Routes/>
+            </div></Router>
+    );
 }
 
 export default App;
