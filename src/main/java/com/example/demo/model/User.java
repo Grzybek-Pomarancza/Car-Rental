@@ -13,6 +13,8 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    @Transient
+    private String passwordConfirm;
     @ManyToOne
     private Role role;
     @ManyToOne
@@ -34,6 +36,14 @@ public class User {
         return String.format(
                 "Customer[id=%d, firstName='%s', lastName='%s']",
                 id, firstName, lastName);
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     public Long getId() {
