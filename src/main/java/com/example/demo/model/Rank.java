@@ -14,7 +14,7 @@ public class Rank {
     private int deposit;
     private int price;
 
-    Rank(){}
+    public Rank(){}
 
     public Rank(String name, int deposit, int price) {
         this.name = name;

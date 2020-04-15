@@ -27,7 +27,7 @@ public class RankAddController {
     @PostMapping("/welcome")
     public Object addRank(@RequestBody Rank inputRank) {
         try {
-            rankService.addNewRank(inputRank);
+            rankService.save(inputRank);
         } catch (ObjectAlreadyExists exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Rank already exists!");
         }

@@ -3,6 +3,7 @@ package com.example.demo.service;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,11 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SecurityServiceImpl implements SecurityService{
+public class SecurityServiceImpl implements iSecurityService{
     @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private UserDetailsService userDetailsService;
 
     private static final Logger logger = (Logger) LoggerFactory.getLogger(SecurityServiceImpl.class);
