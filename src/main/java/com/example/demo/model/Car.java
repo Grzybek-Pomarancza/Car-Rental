@@ -8,10 +8,8 @@ public class Car {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private String street;
-    private int number;
-    private String code;
-    private String city;
+    private int year;
+    private String license;
     @ManyToOne
     private Model model;
     @ManyToOne
@@ -19,45 +17,27 @@ public class Car {
 
     Car(){}
 
-    public Car(String street, int number, String code, String city, Model model, Rank rank) {
-        this.street = street;
-        this.number = number;
-        this.code = code;
-        this.city = city;
+    public Car(String license, int year, Model model, Rank rank) {
+        this.license = license;
+        this.year = year;
         this.model = model;
         this.rank = rank;
     }
 
-    public String getStreet() {
-        return street;
+    public int getYear() {
+        return year;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public int getNumber() {
-        return number;
+    public String getLicense() {
+        return license;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public Model getModel() {
