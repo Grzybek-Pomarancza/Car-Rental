@@ -15,7 +15,7 @@ public class Car {
     @ManyToOne
     private Rank rank;
 
-    Car(){}
+    public Car(){}
 
     public Car(String license, int year, Model model, Rank rank) {
         this.license = license;

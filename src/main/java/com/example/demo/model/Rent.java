@@ -16,7 +16,7 @@ public class Rent {
     @Temporal(TemporalType.DATE) java.util.Date rentDate;
     @Temporal(TemporalType.DATE) java.util.Date retunrnDate;
 
-    Rent(){}
+     public Rent(){}
 
     public void setUser(User user) {
         this.user = user;

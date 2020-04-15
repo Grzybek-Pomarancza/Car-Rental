@@ -1,7 +1,14 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Car;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CarRepository extends JpaRepository <Car,Long> {
+import java.util.List;
+
+import com.example.demo.model.Car;
+import com.example.demo.model.User;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CarRepository extends CrudRepository<Car, Long> {
+
 }

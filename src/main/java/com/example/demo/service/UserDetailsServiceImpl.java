@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Set;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements org.springframework.security.core.userdetails.UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
