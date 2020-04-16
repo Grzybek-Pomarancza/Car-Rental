@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SecurityService implements iSecurityService {
+public class SecurityService  {
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -20,7 +20,6 @@ public class SecurityService implements iSecurityService {
 
     private static final Logger logger = (Logger) LoggerFactory.getLogger(SecurityService.class);
 
-    @Override
     public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
         if (userDetails instanceof UserDetails) {
@@ -30,7 +29,6 @@ public class SecurityService implements iSecurityService {
         return null;
     }
 
-    @Override
     public void autoLogin(String email, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
