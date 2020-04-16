@@ -13,6 +13,7 @@ public class RankService {
     public void save(Rank rank) {
         rankRepository.save(rank);
     }
+
     public Rank findByName(String email) {
         return rankRepository.findByName(email);
     }

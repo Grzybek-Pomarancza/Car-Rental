@@ -25,10 +25,10 @@ public class RankValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
         if (rank.getName().length() < 3 || rank.getName().length() > 32) {
-            errors.rejectValue("email", "Size.rankForm.name", " Use between 3 and 32 characters for name.");
+            errors.rejectValue("name", "Size.rankForm.name", " Use between 3 and 32 characters for name.");
         }
         if (rankService.findByName(rank.getName()) != null) {
-            errors.rejectValue("email", "Duplicate.rankForm.name", "Name exists.");
+            errors.rejectValue("name", "Duplicate.rankForm.name", "Name exists.");
         }
     }
 }

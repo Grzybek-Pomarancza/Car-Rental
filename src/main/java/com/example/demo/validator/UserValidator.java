@@ -1,42 +1,37 @@
 package com.example.demo.validator;
 
 import com.example.demo.model.User;
-import com.example.demo.service.iUserService;
+import com.example.demo.service.UserService;
+import com.example.demo.validator.components.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-@Component
-public class UserValidator implements Validator {
-    @Autowired
-    private iUserService userService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+@Component
+public class UserValidator  {
+
+    private List<iUserAttributesValidator> validators;
+
+    public UserValidator(){
+        validators = new ArrayList<>();
+        validators.add(new EmailValidator());
+        validators.add(new FirstNameValidator());
+        validators.add(new LastNameValidator());
+        validators.add(new PasswordValidator());
     }
 
-    @Override
-    public void validate(Object o, Errors errors) {
-        User user = (User) o;
+    public List<String> validate(User user){
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-        if (user.getEmail().length() < 6 || user.getEmail().length() > 32) {
-            errors.rejectValue("email", "Size.userForm.email", " Use between 6 and 32 characters for email.");
-        }
-        if (userService.findByEmail(user.getEmail()) != null) {
-            errors.rejectValue("email", "Duplicate.userForm.email", "Email Taken");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password", "Try password with at least 8 characters.");
-        }
-
-        if (!user.getPasswordConfirm().equals(user.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm", "Passwords don't match.");
-        }
+        return validators.stream()
+                .map(e -> e.validate(user))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 }
