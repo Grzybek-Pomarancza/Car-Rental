@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public List<String> registration(@ModelAttribute("userForm") User userForm) {
+    public List<String> registration(@RequestBody User userForm) {
 
         UserValidator validator = new UserValidator();
         List<String> messages = validator.validate(userForm);

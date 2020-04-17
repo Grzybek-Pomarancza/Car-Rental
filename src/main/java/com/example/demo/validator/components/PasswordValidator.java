@@ -13,6 +13,9 @@ public class PasswordValidator implements iUserAttributesValidator {
             return "password is too short";
         } else if(attribute.contains(" ")){
             return "password contains illegal character";
+        } else if(!(attribute.equals(user.getPasswordConfirm()))){
+            return "passwords does not match";
+
         }
         return null;
     }
