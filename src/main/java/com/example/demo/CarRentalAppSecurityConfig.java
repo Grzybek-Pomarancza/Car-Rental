@@ -37,7 +37,8 @@ public class CarRentalAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+        .and().csrf().disable();
     }
 
     @Bean
