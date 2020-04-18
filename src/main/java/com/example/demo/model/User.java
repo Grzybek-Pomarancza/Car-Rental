@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-
 import javax.persistence.*;
 
 @Entity(name = "USERS")
@@ -13,10 +12,12 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    @Transient
+    private String passwordConfirm;
     @ManyToOne
     private Role role;
     @ManyToOne
-    private Address addrss;
+    private Address address;
 
     public User() {}
 
@@ -26,7 +27,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
-        this.addrss = addrss;
+        this.address = addrss;
     }
 
     @Override
@@ -34,6 +35,14 @@ public class User {
         return String.format(
                 "Customer[id=%d, firstName='%s', lastName='%s']",
                 id, firstName, lastName);
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     public Long getId() {
@@ -81,10 +90,10 @@ public class User {
     }
 
     public Address getAddrss() {
-        return addrss;
+        return address;
     }
 
     public void setAddrss(Address addrss) {
-        this.addrss = addrss;
+        this.address = addrss;
     }
 }

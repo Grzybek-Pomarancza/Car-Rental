@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8cc5a6c6-98a0-41e0-9dde-9ffe9365fed2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/exceptions/ObjectAlreadyExistsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/BrandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/BrandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/CarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/CarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ModelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ModelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/RankController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/RankController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/exceptions/ObjectAlreadyExists.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/exceptions/InvalidDataException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/exceptions/ObjectNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/exceptions/ObjectNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/BrandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/BrandService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/CarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/CarService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ModelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ModelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/RankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/RankService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/validator/BrandValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/validator/BrandValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/validator/CarValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/validator/CarValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/validator/ModelValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/validator/ModelValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/validator/RankValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/validator/RankValidator.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ahtdsNXv51QULZBbPye8iBA7pn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DZIAŁAJĄCY CAR-RENT" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.demo.exceptions" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="CarRentalAppApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.CarRentalAppApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="327c322a-5eb8-4fe6-909f-8323fe0ad8f3" name="Default Changelist" comment="" />
+      <created>1587199744109</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587199744109</updated>
+      <workItem from="1587199751005" duration="446000" />
+      <workItem from="1587201693899" duration="128000" />
+      <workItem from="1587201841858" duration="15000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="361" y="74" key="#Project_Structure" timestamp="1587199941352">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="74" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1587199941352" />
+    <state x="389" y="11" key="CommitChangelistDialog2" timestamp="1587212770593">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="389" y="11" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587212770593" />
+    <state x="355" y="171" key="FileChooserDialogImpl" timestamp="1587201855436">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="355" y="171" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587201855436" />
+    <state width="1493" height="177" key="GridCell.Tab.0.bottom" timestamp="1587218732705">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="177" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587218732705" />
+    <state width="1493" height="177" key="GridCell.Tab.0.center" timestamp="1587218732705">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="177" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587218732705" />
+    <state width="1493" height="177" key="GridCell.Tab.0.left" timestamp="1587218732704">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="177" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587218732704" />
+    <state width="1493" height="177" key="GridCell.Tab.0.right" timestamp="1587218732705">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="177" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587218732705" />
+    <state width="1493" height="177" key="GridCell.Tab.1.bottom" timestamp="1587218732705">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="177" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587218732705" />
+    <state width="1493" height="177" key="GridCell.Tab.1.center" timestamp="1587218732705">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="177" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587218732705" />
+    <state width="1493" height="177" key="GridCell.Tab.1.left" timestamp="1587218732705">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="177" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587218732705" />
+    <state width="1493" height="177" key="GridCell.Tab.1.right" timestamp="1587218732705">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="177" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587218732705" />
+    <state x="26" y="0" width="650" height="602" key="dock-window-1" timestamp="1587218581861">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="26" y="0" width="650" height="602" key="dock-window-1/0.0.1536.824@0.0.1536.824" timestamp="1587218581861" />
+  </component>
+</project>

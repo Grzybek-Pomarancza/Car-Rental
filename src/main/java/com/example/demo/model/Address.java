@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-
 import javax.persistence.*;
 
 @Entity(name = "ADDRESSES")
@@ -10,13 +9,13 @@ public class Address {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String street;
-    private int number;
+    private String number;
     private String code;
     private String city;
 
     public Address() {}
 
-    public Address(String street, int number, String code, String city) {
+    public Address(String street, String number, String code, String city) {
         this.street = street;
         this.number = number;
         this.code = code;
@@ -43,11 +42,11 @@ public class Address {
         this.street = street;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
