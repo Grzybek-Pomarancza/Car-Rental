@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(name = "RENTS")
@@ -13,10 +14,17 @@ public class Rent {
     private User user;
     @ManyToOne
     private Car car;
-    @Temporal(TemporalType.DATE) java.util.Date rentDate;
-    @Temporal(TemporalType.DATE) java.util.Date retunrnDate;
+   // @Temporal(TemporalType.DATE)
+    java.sql.Date rentDate;
+    //@Temporal(TemporalType.DATE)
+    java.sql.Date  returnDate;
 
-     public Rent(){}
+    public Rent(){}
+
+    public Rent(Car car, User user){
+        this.car=car;
+        this.user=user;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -26,12 +34,12 @@ public class Rent {
         this.car = car;
     }
 
-    public void setRentDate(Date rentDate) {
+    public void setRentDate(java.sql.Date  rentDate) {
         this.rentDate = rentDate;
     }
 
-    public void setRetunrnDate(Date retunrnDate) {
-        this.retunrnDate = retunrnDate;
+    public void setReturnDate(java.sql.Date  returnDate) {
+        this.returnDate = returnDate;
     }
 
     public Long getId() {
@@ -46,11 +54,11 @@ public class Rent {
         return car;
     }
 
-    public Date getRentDate() {
+    public java.sql.Date getRentDate() {
         return rentDate;
     }
 
-    public Date getRetunrnDate() {
-        return retunrnDate;
+    public java.sql.Date getReturnDate() {
+        return returnDate;
     }
 }

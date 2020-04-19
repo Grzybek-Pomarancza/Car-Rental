@@ -1,6 +1,9 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "CARS")
 public class Car {
@@ -14,6 +17,10 @@ public class Car {
     private Model model;
     @ManyToOne
     private Rank rank;
+    @OneToMany(mappedBy = "car")
+    @JsonIgnore
+    private List<Rent> rent;
+
 
     public Car(){}
 
@@ -26,6 +33,10 @@ public class Car {
 
     public int getYear() {
         return year;
+    }
+
+    public List<Rent> getRent() {
+        return rent;
     }
 
     public void setYear(int year) {
