@@ -28,6 +28,9 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+
+
+
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -37,11 +40,14 @@ public class UserController {
     @PostMapping("/registration")
     public List<String> registration(@RequestBody User userForm) {
 
-        UserValidator validator = new UserValidator();
-        List<String> messages = validator.validate(userForm);
+        List<String> messages = userValidator.validate(userForm);
         if(messages.isEmpty()) {
             Role role = roleRepository.findById(1);
             userForm.setRole(role);
+            String s = userForm.getFirstName().substring(0, 1).toUpperCase() + userForm.getFirstName().substring(1).toLowerCase();
+            userForm.setFirstName(s);
+            s = userForm.getLastName().substring(0, 1).toUpperCase() + userForm.getLastName().substring(1).toLowerCase();
+            userForm.setLastName(s);
             userService.save(userForm);
             securityService.autoLogin(userForm.getEmail(), userForm.getPasswordConfirm());
         }

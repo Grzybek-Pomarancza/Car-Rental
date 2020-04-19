@@ -7,7 +7,9 @@ public class FirstNameValidator implements iUserAttributesValidator {
     @Override
     public String validate(User user) {
         String attribute = user.getFirstName();
-        if(attribute.length() > 30){
+        if(attribute == null){
+            return "enter first name";
+        } else if(attribute.length() > 30){
             return "firstName is too long";
         } else if(attribute.length() < 3) {
             return "firstName is too short";
