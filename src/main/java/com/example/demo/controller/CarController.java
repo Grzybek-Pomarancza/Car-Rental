@@ -56,6 +56,7 @@ public class CarController {
     }
 
 
+
     //zrobilam klase ListOfFilters, ktora zawiera rzeczy mozliwe do wpisaniaw filtrach (model, marka, cena min/max, data min/max)
     @PostMapping("/filters")
     public List<Car> filters(@RequestBody ListOfFilters filter) {
@@ -64,15 +65,12 @@ public class CarController {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
 
-                //Robie join dla tabel, ktore beda mi potrzebne, poki co bez rent. Ogolnie dziala to polaczenie z rent
-                // , ale nie umiem jeszcze tego zrobic tak, zeby były zwrocone samochody dostepne pomiedzy dwoma datami
-                // i te,ktore w ogole nie maja rezerwacji
+                //Robie join dla tabel
                 Join<Car,Model> model = root.join("model");
                 Join<Model,Brand> brand = model.join("brand");
                 Join<Car,Rank> rank = root.join("rank");
-                //Join<Car,Rent> rent = root.join("rent", JoinType.LEFT);
+                Join<Car,Rent> rent = root.join("rent", JoinType.LEFT);
 
-                //tworze liste zapytan do bazy
                 final List<Predicate> predicates = new ArrayList<>();
 
                 // sprawdzam czy sa poszczegolne filtry wpisane i jak tak to szukam w bazie pasujacych samochodow
@@ -84,10 +82,35 @@ public class CarController {
                     predicates.add(criteriaBuilder.ge(rank.get("price"), filter.getMin()));
                 if(filter.getMax()!=0)
                     predicates.add(criteriaBuilder.le(rank.get("price"), filter.getMax()));
-      //        if(filter.getRentDate()!= null)
-      //            predicates.add(criteriaBuilder.lessThan(rent.get("returnDate"), filter.getRentDate()));
-      //        if(filter.getReturnDate()!= null)
-      //            predicates.add(criteriaBuilder.greaterThan(rent.get("rentDate"), filter.getReturnDate()));
+                if((filter.getRentDate()!= null)&& (filter.getReturnDate()!= null)){
+
+                    //sprawdzam daty
+
+                    Predicate pk1 = criteriaBuilder.greaterThanOrEqualTo(rent.get("returnDate"), filter.getReturnDate());
+                    Predicate pk2 = criteriaBuilder.lessThanOrEqualTo(rent.get("rentDate"), filter.getReturnDate());
+                    Predicate pk = criteriaBuilder.and(pk1 , pk2);
+
+                    Predicate pp1 = criteriaBuilder.greaterThanOrEqualTo(rent.get("returnDate"), filter.getRentDate());
+                    Predicate pp2 = criteriaBuilder.lessThanOrEqualTo(rent.get("rentDate"), filter.getRentDate());
+                    Predicate pp = criteriaBuilder.and(pp1 , pp2);
+
+                    Predicate ip1 = criteriaBuilder.greaterThanOrEqualTo(rent.get("rentDate"), filter.getRentDate());
+                    Predicate ip2 = criteriaBuilder.lessThanOrEqualTo(rent.get("rentDate"), filter.getReturnDate());
+                    Predicate ip = criteriaBuilder.and(ip1 , ip2);
+
+                    Predicate ik1 = criteriaBuilder.greaterThanOrEqualTo(rent.get("returnDate"), filter.getRentDate());
+                    Predicate ik2 = criteriaBuilder.lessThanOrEqualTo(rent.get("returnDate"), filter.getReturnDate());
+                    Predicate ik = criteriaBuilder.and(ik1 , ik2);
+
+                    Predicate dates = criteriaBuilder.not(criteriaBuilder.or(pk , pp , ik , ip));
+
+                    //dodaje samochody, które nie mają wypożyczeń
+                    Predicate a = criteriaBuilder.isEmpty(root.get("rent"));
+
+                    Predicate x = criteriaBuilder.or(dates,a);
+                    predicates.add(x);
+
+                }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
