@@ -9,11 +9,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ModelValidator {
 
-    @Autowired
-    ModelRepository modelRepository;
-    @Autowired
-    BrandValidator brandValidator;
 
+    private final ModelRepository modelRepository;
+    private final BrandValidator brandValidator;
+
+    @Autowired
+    public ModelValidator(ModelRepository modelRepository, BrandValidator brandValidator) {
+        this.brandValidator=brandValidator;
+        this.modelRepository=modelRepository;
+    }
     public boolean checkIfObjectExists(Model modelToValidate) {
 
         if(modelRepository.findByName(modelToValidate.getName()).isPresent())

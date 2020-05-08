@@ -8,12 +8,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class CarValidator {
 
+    private final CarRepository carRepository;
+    private final ModelValidator modelValidator;
+    private final RankValidator rankValidator;
+
     @Autowired
-    CarRepository carRepository;
-    @Autowired
-    ModelValidator modelValidator;
-    @Autowired
-    RankValidator rankValidator;
+    public CarValidator(CarRepository carRepository, ModelValidator modelValidator, RankValidator rankValidator) {
+        this.carRepository=carRepository;
+        this.modelValidator=modelValidator;
+        this.rankValidator=rankValidator;
+    }
 
     public boolean checkIfObjectExists(Car carToValidate) {
 
