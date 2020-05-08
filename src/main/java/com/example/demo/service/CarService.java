@@ -17,13 +17,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarService {
 
-    private CarRepository carRepository;
-    private ModelRepository modelRepository;
-    private RankRepository rankRepository;
-    private CarValidator carValidator;
-    private ModelValidator modelValidator;
-    private RankValidator rankValidator;
-    private BrandValidator brandValidator;
+    private final CarRepository carRepository;
+    private final ModelRepository modelRepository;
+    private final RankRepository rankRepository;
+    private final CarValidator carValidator;
+    private final ModelValidator modelValidator;
+    private final RankValidator rankValidator;
+    private final BrandValidator brandValidator;
 
     @Autowired
     CarService(CarRepository carRepository,RankValidator rankValidator,ModelValidator modelValidator,
@@ -49,7 +49,7 @@ public class CarService {
                 }
                 carRepository.save(new Car(newCar.getLicense(), newCar.getYear(),
                         modelRepository.findByName(newCar.getModel().getName()).get(),
-                        rankRepository.findByName(newCar.getRank().getName()).get()));
+                        rankRepository.findByName(newCar.getRank().getName()).get(),newCar.getCordX(),newCar.getCordY()));
             }
             else
                 throw new InvalidDataException();

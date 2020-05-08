@@ -11,10 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrandService {
 
+
+    private final BrandRepository brandRepository;
+    private final BrandValidator brandValidator;
+    
     @Autowired
-    private BrandRepository brandRepository;
-    @Autowired
-    private BrandValidator brandValidator;
+    public BrandService(BrandRepository brandRepository, BrandValidator brandValidator){
+        this.brandValidator=brandValidator;
+        this.brandRepository=brandRepository;
+    }
 
     public void addNewObject(Brand newBrand) throws ObjectAlreadyExistsException, InvalidDataException {
 

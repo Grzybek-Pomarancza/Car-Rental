@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ModelService {
 
-    private ModelRepository modelRepository;
-    private BrandValidator brandValidator;
-    private ModelValidator modelValidator;
-    private BrandRepository brandRepository;
+    private final ModelRepository modelRepository;
+    private final BrandValidator brandValidator;
+    private final ModelValidator modelValidator;
+    private final BrandRepository brandRepository;
 
     @Autowired
     ModelService(ModelValidator modelValidator, ModelRepository modelRepository, BrandValidator brandValidator, BrandRepository brandRepository) {

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class RankService {
 
-    private RankRepository rankRepository;
-    private RankValidator rankValidator;
+    private final RankRepository rankRepository;
+    private final RankValidator rankValidator;
 
     @Autowired
     RankService(RankRepository rankRepository, RankValidator rankValidator) {
