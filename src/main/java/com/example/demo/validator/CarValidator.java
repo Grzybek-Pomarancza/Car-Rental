@@ -31,6 +31,8 @@ public class CarValidator {
             return false;
         if(!rankValidator.validateObject(carToValidate.getRank()))
             return false;
+        if(carToValidate.getCordX() == null || carToValidate.getCordY() == null)
+            return false;
         return true;
     }
 }

@@ -22,10 +22,10 @@ public class RankValidator {
 
     public boolean validateObject(Rank rankToValidate) {
 
-        if( rankToValidate.getName() != null && (!rankToValidate.getName().isEmpty()) &&
-            rankToValidate.getDeposit() != 0 && rankToValidate.getPrice() != 0)
-            return true;
-        else
+        if( rankToValidate.getName() == null || rankToValidate.getName().isEmpty())
             return false;
+        if( rankToValidate.getPrice() == null || rankToValidate.getDeposit() == null)
+            return false;
+        return true;
     }
 }
