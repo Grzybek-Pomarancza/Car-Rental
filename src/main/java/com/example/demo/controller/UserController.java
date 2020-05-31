@@ -7,8 +7,6 @@ import com.example.demo.service.SecurityService;
 import com.example.demo.service.UserService;
 import com.example.demo.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
@@ -29,8 +27,6 @@ public class UserController {
     private UserValidator userValidator;
 
 
-
-
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -41,7 +37,7 @@ public class UserController {
     public List<String> registration(@RequestBody User userForm) {
 
         List<String> messages = userValidator.validate(userForm);
-        if(messages.isEmpty()) {
+        if (messages.isEmpty()) {
             Role role = roleRepository.findById(1);
             userForm.setRole(role);
             String s = userForm.getFirstName().substring(0, 1).toUpperCase() + userForm.getFirstName().substring(1).toLowerCase();
@@ -53,15 +49,5 @@ public class UserController {
         }
 
         return messages;
-    }
-
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
-    }
-
-    @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
-        return "welcome";
     }
 }

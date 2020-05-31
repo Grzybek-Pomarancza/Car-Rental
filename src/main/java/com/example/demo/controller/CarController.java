@@ -1,11 +1,23 @@
 package com.example.demo.controller;
 
+
+import com.example.demo.ResponseStatus.ResponseStatus;
+import com.example.demo.exceptions.InvalidDataException;
+import com.example.demo.exceptions.ObjectAlreadyExistsException;
+import com.example.demo.exceptions.ObjectNotFoundException;
+import com.example.demo.service.CarService;
 import com.example.demo.model.*;
 import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.RentRepository;
-import com.example.demo.service.UserService;
 import com.example.demo.validator.RentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +38,23 @@ public class CarController {
     @Autowired
     private RentValidator rentValidator;
 
-    @Autowired
-    private UserService userService;
 
+    @Autowired
+    private CarService carService;
+
+    @RequestMapping(method= RequestMethod.POST,value="/newcar")
+    public ResponseStatus addNewCar(@RequestBody Car newCar)  {
+        try{
+            carService.addNewObject(newCar);
+        } catch (ObjectAlreadyExistsException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car with given license already exists.", exception);
+        } catch (ObjectNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Model, brand or rank does not exists.",exception);
+        } catch (InvalidDataException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input", exception);
+        }
+        return new ResponseStatus("Car sucessfully added.");
+    }
 
 
     @GetMapping("/rent")
@@ -37,77 +63,64 @@ public class CarController {
         return "registration";
     }
 
-    // do tego post muszę dostać rentForm z Car i User już
     @PostMapping("/rent")
     public List<String> rent(@RequestBody Rent rentForm) {
 
-        //to jakbym nie dostała User z frontu
-        /*
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email = ((UserDetails)principal).getUsername();
-        User user = userService.findByEmail(email);
-         */
-
         List<String> messages = rentValidator.validate(rentForm);
-        if(messages.isEmpty()) {
+        if (messages.isEmpty()) {
             rentRepository.save(rentForm);
         }
         return messages;
     }
 
 
-
     //zrobilam klase ListOfFilters, ktora zawiera rzeczy mozliwe do wpisaniaw filtrach (model, marka, cena min/max, data min/max)
     @PostMapping("/filters")
     public List<Car> filters(@RequestBody ListOfFilters filter) {
-        // results to lista samochodow, ktore beda sie zgadzac z filtrami
         List<Car> results = carRepository.findAll(new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
 
                 //Robie join dla tabel
-                Join<Car,Model> model = root.join("model");
-                Join<Model,Brand> brand = model.join("brand");
-                Join<Car,Rank> rank = root.join("rank");
-                Join<Car,Rent> rent = root.join("rent", JoinType.LEFT);
+                Join<Car, Model> model = root.join("model");
+                Join<Model, Brand> brand = model.join("brand");
+                Join<Car, Rank> rank = root.join("rank");
+                Join<Car, Rent> rent = root.join("rent", JoinType.LEFT);
 
                 final List<Predicate> predicates = new ArrayList<>();
 
-                // sprawdzam czy sa poszczegolne filtry wpisane i jak tak to szukam w bazie pasujacych samochodow
-                if(filter.getModel()!=null)
+                if (filter.getModel() != null)
                     predicates.add(criteriaBuilder.equal(model.get("name"), filter.getModel()));
-                if(filter.getBrand()!=null)
+                if (filter.getBrand() != null)
                     predicates.add(criteriaBuilder.equal(brand.get("name"), filter.getBrand()));
-                if(filter.getMin()!=0)
+                if (filter.getMin() != 0)
                     predicates.add(criteriaBuilder.ge(rank.get("price"), filter.getMin()));
-                if(filter.getMax()!=0)
+                if (filter.getMax() != 0)
                     predicates.add(criteriaBuilder.le(rank.get("price"), filter.getMax()));
-                if((filter.getRentDate()!= null)&& (filter.getReturnDate()!= null)){
-
-                    //sprawdzam daty
+                if ((filter.getRentDate() != null) && (filter.getReturnDate() != null)) {
 
                     Predicate pk1 = criteriaBuilder.greaterThanOrEqualTo(rent.get("returnDate"), filter.getReturnDate());
                     Predicate pk2 = criteriaBuilder.lessThanOrEqualTo(rent.get("rentDate"), filter.getReturnDate());
-                    Predicate pk = criteriaBuilder.and(pk1 , pk2);
+                    Predicate pk = criteriaBuilder.and(pk1, pk2);
 
                     Predicate pp1 = criteriaBuilder.greaterThanOrEqualTo(rent.get("returnDate"), filter.getRentDate());
                     Predicate pp2 = criteriaBuilder.lessThanOrEqualTo(rent.get("rentDate"), filter.getRentDate());
-                    Predicate pp = criteriaBuilder.and(pp1 , pp2);
+                    Predicate pp = criteriaBuilder.and(pp1, pp2);
 
                     Predicate ip1 = criteriaBuilder.greaterThanOrEqualTo(rent.get("rentDate"), filter.getRentDate());
                     Predicate ip2 = criteriaBuilder.lessThanOrEqualTo(rent.get("rentDate"), filter.getReturnDate());
-                    Predicate ip = criteriaBuilder.and(ip1 , ip2);
+                    Predicate ip = criteriaBuilder.and(ip1, ip2);
 
                     Predicate ik1 = criteriaBuilder.greaterThanOrEqualTo(rent.get("returnDate"), filter.getRentDate());
                     Predicate ik2 = criteriaBuilder.lessThanOrEqualTo(rent.get("returnDate"), filter.getReturnDate());
-                    Predicate ik = criteriaBuilder.and(ik1 , ik2);
+                    Predicate ik = criteriaBuilder.and(ik1, ik2);
 
-                    Predicate dates = criteriaBuilder.not(criteriaBuilder.or(pk , pp , ik , ip));
+                    Predicate dates = criteriaBuilder.not(criteriaBuilder.or(pk, pp, ik, ip));
 
                     //dodaje samochody, które nie mają wypożyczeń
                     Predicate a = criteriaBuilder.isEmpty(root.get("rent"));
 
-                    Predicate x = criteriaBuilder.or(dates,a);
+                    Predicate x = criteriaBuilder.or(dates, a);
                     predicates.add(x);
 
                 }
@@ -118,8 +131,6 @@ public class CarController {
 
         return results;
     }
-
-
 
 
 }
