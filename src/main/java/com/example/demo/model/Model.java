@@ -9,7 +9,7 @@ public class Model {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Brand brand;
 
     public Model(){}

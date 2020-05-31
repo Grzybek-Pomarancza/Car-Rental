@@ -11,8 +11,8 @@ public class Rank {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
-    private int deposit;
-    private int price;
+    private Integer deposit;
+    private Integer price;
 
     public Rank(){}
 
@@ -30,7 +30,7 @@ public class Rank {
         this.name = name;
     }
 
-    public int getDeposit() {
+    public Integer getDeposit() {
         return deposit;
     }
 
@@ -38,7 +38,7 @@ public class Rank {
         this.deposit = deposit;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
