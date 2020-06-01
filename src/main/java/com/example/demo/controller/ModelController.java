@@ -32,7 +32,7 @@ public class ModelController {
         } catch (ObjectNotFoundException exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Brand Does Not Exists.",exception);
         }
-        return new ResponseStatus("Model Sucessfully Added.");
+        return new ResponseStatus("Model Successfully Added.");
 
     }
 }

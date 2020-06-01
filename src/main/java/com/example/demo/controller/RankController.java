@@ -28,6 +28,6 @@ public class RankController {
         } catch (InvalidDataException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Input", exception);
         }
-        return new ResponseStatus("Rank sucessfully added.");
+        return new ResponseStatus("Rank successfully added.");
     }
 }
