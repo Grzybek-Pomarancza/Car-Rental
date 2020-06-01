@@ -2,6 +2,9 @@ package com.example.demo.validator;
 
 import com.example.demo.repository.CarRepository;
 import com.example.demo.model.Car;
+import com.example.demo.validator.components.RentCarValidator;
+import com.example.demo.validator.components.RentDateValidator;
+import com.example.demo.validator.components.RentUserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +15,23 @@ public class CarValidator {
     private final ModelValidator modelValidator;
     private final RankValidator rankValidator;
 
+    private final RentCarValidator rentCarValidator;
+    private final RentDateValidator rentDateValidator;
+    private final RentUserValidator rentUserValidator;
+
     @Autowired
-    public CarValidator(CarRepository carRepository, ModelValidator modelValidator, RankValidator rankValidator) {
+    public CarValidator(CarRepository carRepository,
+                        ModelValidator modelValidator,
+                        RankValidator rankValidator,
+                        RentCarValidator rentCarValidator,
+                        RentDateValidator rentDateValidator,
+                        RentUserValidator rentUserValidator) {
         this.carRepository=carRepository;
         this.modelValidator=modelValidator;
         this.rankValidator=rankValidator;
+        this.rentCarValidator=rentCarValidator;
+        this.rentDateValidator=rentDateValidator;
+        this.rentUserValidator=rentUserValidator;
     }
 
     public boolean checkIfObjectExists(Car carToValidate) {

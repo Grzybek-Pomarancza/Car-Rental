@@ -11,7 +11,6 @@ import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.RentRepository;
 import com.example.demo.validator.RentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,24 +52,19 @@ public class CarController {
         } catch (InvalidDataException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input", exception);
         }
-        return new ResponseStatus("Car sucessfully added.");
+        return new ResponseStatus("Car successfully added.");
     }
 
 
-    @GetMapping("/rent")
-    public String rent(Model model) {
-        model.addAttribute("rentForm", new Rent());
-        return "registration";
-    }
-
-    @PostMapping("/rent")
-    public List<String> rent(@RequestBody Rent rentForm) {
-
-        List<String> messages = rentValidator.validate(rentForm);
-        if (messages.isEmpty()) {
-            rentRepository.save(rentForm);
+    @RequestMapping(method= RequestMethod.POST,value="/rent")
+    public ResponseStatus rent(@RequestBody Rent rent){
+        try {
+            this.rentValidator.validate(rent);
+        } catch (InvalidDataException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input", e);
         }
-        return messages;
+        rentRepository.save(rent);
+        return new ResponseStatus("Successful rent.");
     }
 
 

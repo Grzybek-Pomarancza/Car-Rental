@@ -1,26 +1,26 @@
 package com.example.demo.validator.components;
 
+import com.example.demo.exceptions.InvalidDataException;
+import com.example.demo.exceptions.ObjectAlreadyExistsException;
 import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailValidator implements iUserAttributesValidator {
+public class EmailValidator {
     @Autowired
     private UserService userService;
-    @Override
-    public String validate(User user) {
+
+    public void validate(User user) throws InvalidDataException, ObjectAlreadyExistsException {
         String attribute = user.getEmail();
         if(attribute == null){
-            return "enter email";
+            throw new InvalidDataException();
         } else if(!attribute.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")){
-            return "email incorrect";
+            throw new InvalidDataException();
         } else if(userService.findByEmail(user.getEmail()) != null){
-            return "email taken";
+            throw new ObjectAlreadyExistsException();
         }
-        return null;
     }
 
 }

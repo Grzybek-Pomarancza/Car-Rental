@@ -1,21 +1,22 @@
 package com.example.demo.validator.components;
 
+import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.model.User;
+import org.springframework.stereotype.Component;
 
-public class LastNameValidator implements iUserAttributesValidator {
+@Component
+public class LastNameValidator {
 
-    @Override
-    public String validate(User user) {
+    public void validate(User user) throws InvalidDataException {
         String attribute = user.getLastName();
         if(attribute == null){
-            return "enter last name";
+            throw new InvalidDataException();
         } else if(attribute.length() > 30){
-            return "lastName is too long";
+            throw new InvalidDataException();
         } else if(attribute.length() < 3) {
-            return "lastName is too short";
+            throw new InvalidDataException();
         } else if(!attribute.matches("[a-zA-Z]+")){
-            return "lastName contains illegal character";
+            throw new InvalidDataException();
         }
-        return null;
     }
 }
