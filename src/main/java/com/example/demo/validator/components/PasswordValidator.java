@@ -1,22 +1,24 @@
 package com.example.demo.validator.components;
 
+import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.model.User;
+import org.springframework.stereotype.Component;
 
-public class PasswordValidator implements iUserAttributesValidator {
+@Component
+public class PasswordValidator {
 
-    @Override
-    public String validate(User user) {
+    public String validate(User user) throws InvalidDataException {
         String attribute = user.getPassword();
         if(attribute == null){
-            return "enter the password";
+            throw new InvalidDataException();
         } else if(attribute.length() > 30){
-            return "password is too long";
+            throw new InvalidDataException();
         } else if(attribute.length() < 3) {
-            return "password is too short";
+            throw new InvalidDataException();
         } else if(attribute.contains(" ")){
-            return "password contains illegal character";
+            throw new InvalidDataException();
         } else if(!(attribute.equals(user.getPasswordConfirm()))){
-            return "passwords does not match";
+            throw new InvalidDataException();
         }
         return null;
     }

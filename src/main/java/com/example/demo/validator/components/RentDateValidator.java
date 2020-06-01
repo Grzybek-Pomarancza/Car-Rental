@@ -1,27 +1,28 @@
 package com.example.demo.validator.components;
 
+import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.model.Rent;
-
+import org.springframework.stereotype.Component;
 import java.util.Calendar;
 
-public class RentDateValidator implements iRentDateValidator {
-    @Override
-    public String validate(Rent rent) {
+@Component
+public class RentDateValidator {
+
+    public void validate(Rent rent) throws InvalidDataException {
         if (!(rent.getRentDate() instanceof java.sql.Date) || !(rent.getReturnDate() instanceof java.sql.Date) ) {
-            return "not data type";
+            throw new InvalidDataException();
         }
         java.sql.Date rentDate = rent.getRentDate();
         java.sql.Date returnDate = rent.getReturnDate();
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         if(rentDate.compareTo(date) < 0){
-            return "rent date is before today ";
+            throw new InvalidDataException();
         } else  if(returnDate.compareTo(date) < 0){
-            return "return date is before today ";
+            throw new InvalidDataException();
         } else  if(returnDate.compareTo(rentDate) == 0){
-            return "return and rent dates are equal ";
+            throw new InvalidDataException();
         } else  if(returnDate.compareTo(rentDate) < 0){
-            return "return date is before rent date ";
+            throw new InvalidDataException();
         }
-        return null;
     }
 }

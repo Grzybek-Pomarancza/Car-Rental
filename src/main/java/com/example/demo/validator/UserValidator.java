@@ -1,32 +1,36 @@
 package com.example.demo.validator;
 
+import com.example.demo.exceptions.InvalidDataException;
+import com.example.demo.exceptions.ObjectAlreadyExistsException;
 import com.example.demo.model.User;
 import com.example.demo.validator.components.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 public class UserValidator  {
 
-    private List<iUserAttributesValidator> validators;
+    private final EmailValidator emailValidator;
+    private final FirstNameValidator firstNameValidator;
+    private final LastNameValidator lastNameValidator;
+    private final PasswordValidator passwordValidator;
 
-    public UserValidator(EmailValidator emailValidator){
-        validators = new ArrayList<>();
-        validators.add(emailValidator);
-        validators.add(new FirstNameValidator());
-        validators.add(new LastNameValidator());
-        validators.add(new PasswordValidator());
+    @Autowired
+    public UserValidator(EmailValidator emailValidator,
+            FirstNameValidator firstNameValidator,
+            LastNameValidator lastNameValidator,
+            PasswordValidator passwordValidator) {
+        this.emailValidator=emailValidator;
+        this.firstNameValidator=firstNameValidator;
+        this.lastNameValidator=lastNameValidator;
+        this.passwordValidator=passwordValidator;
     }
 
-    public List<String> validate(User user){
-
-        return validators.stream()
-                .map(e -> e.validate(user))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+    public void validate(User userToValidate) throws InvalidDataException, ObjectAlreadyExistsException {
+        this.emailValidator.validate(userToValidate);
+        this.firstNameValidator.validate(userToValidate);
+        this.lastNameValidator.validate(userToValidate);
+        this.passwordValidator.validate(userToValidate);
     }
+
 }

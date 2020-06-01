@@ -1,13 +1,15 @@
 package com.example.demo.validator.components;
 
+import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.model.Rent;
+import org.springframework.stereotype.Component;
 
-public class RentCarValidator implements iRentDateValidator {
-    @Override
-    public String validate(Rent rent) {
+@Component
+public class RentCarValidator {
+
+    public void validate(Rent rent) throws InvalidDataException {
         if(rent.getCar()==null){
-            return "car error";
+            throw new InvalidDataException();
         }
-        return null;
     }
 }
