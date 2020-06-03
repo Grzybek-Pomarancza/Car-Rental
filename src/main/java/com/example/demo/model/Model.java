@@ -6,13 +6,14 @@ import javax.persistence.*;
 public class Model {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     @ManyToOne(cascade = CascadeType.ALL)
     private Brand brand;
 
-    public Model(){}
+    public Model() {
+    }
 
     public Model(String name, Brand brand) {
         this.name = name;
