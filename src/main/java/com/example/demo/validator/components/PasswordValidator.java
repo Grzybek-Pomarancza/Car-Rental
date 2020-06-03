@@ -17,8 +17,6 @@ public class PasswordValidator {
             throw new InvalidDataException();
         } else if(attribute.contains(" ")){
             throw new InvalidDataException();
-        } else if(!(attribute.equals(user.getPasswordConfirm()))){
-            throw new InvalidDataException();
         }
         return null;
     }

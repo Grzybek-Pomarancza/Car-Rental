@@ -9,16 +9,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailValidator {
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public EmailValidator(UserService userService) {
+        this.userService = userService;
+    }
 
     public void validate(User user) throws InvalidDataException, ObjectAlreadyExistsException {
         String attribute = user.getEmail();
-        if(attribute == null){
+        if (attribute == null) {
             throw new InvalidDataException();
-        } else if(!attribute.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")){
+        } else if (!attribute.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
             throw new InvalidDataException();
-        } else if(userService.findByEmail(user.getEmail()) != null){
+        } else if (userService.findByEmail(user.getEmail()).isPresent()) {
             throw new ObjectAlreadyExistsException();
         }
     }

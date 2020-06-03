@@ -1,4 +1,6 @@
 package com.example.demo.exceptions;
 
-public class ObjectAlreadyExistsException extends Exception {
+public class ObjectAlreadyExistsException extends RuntimeException {
+    public ObjectAlreadyExistsException() {
+    }
 }

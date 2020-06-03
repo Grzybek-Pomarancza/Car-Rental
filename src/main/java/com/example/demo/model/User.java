@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
     private String firstName;
@@ -19,14 +19,13 @@ public class User {
     private String email;
     @NotNull
     private String password;
-    @Transient
-    private String passwordConfirm;
     @ManyToOne
     private Role role;
     @ManyToOne
     private Address addrss;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String firstName, String lastName, String email, String password, Role role, Address addrss) {
         this.firstName = firstName;
@@ -42,14 +41,6 @@ public class User {
         return String.format(
                 "Customer[id=%d, firstName='%s', lastName='%s']",
                 id, firstName, lastName);
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
     }
 
     public Long getId() {

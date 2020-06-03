@@ -1,8 +1,8 @@
-package com.example.demo.ResponseStatus;
+package com.example.demo.model.dao;
 
 public class ResponseStatus {
 
-    private String message;
+    private final String message;
 
     public ResponseStatus(String message) {
         this.message=message;
