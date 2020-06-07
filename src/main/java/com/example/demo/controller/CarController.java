@@ -80,9 +80,12 @@ public class CarController {
                 Join<Model, Brand> brand = model.join("brand");
                 Join<Car, Rank> rank = root.join("rank");
                 Join<Car, Rent> rent = root.join("rent", JoinType.LEFT);
+                Join<Car,Office> office = root.join("office");
 
                 final List<Predicate> predicates = new ArrayList<>();
 
+                if (filter.getOfficeId() != null)
+                    predicates.add(criteriaBuilder.equal(office.get("id"), filter.getOfficeId()));
                 if (filter.getModel() != null)
                     predicates.add(criteriaBuilder.equal(model.get("name"), filter.getModel()));
                 if (filter.getBrand() != null)

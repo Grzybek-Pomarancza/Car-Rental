@@ -9,12 +9,12 @@ import java.util.List;
 public class Car {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int year;
     private String license;
-    private Double cordX;
-    private Double cordY;
+    @ManyToOne
+    private Office office;
     @ManyToOne
     private Model model;
     @ManyToOne
@@ -24,15 +24,30 @@ public class Car {
     private List<Rent> rent;
 
 
-    public Car(){}
+    public Car() {
+    }
 
-    public Car(String license, Integer year, Model model, Rank rank, Double cordX, Double cordY) {
+    public Car(String license, Integer year, Model model, Rank rank) {
         this.license = license;
         this.year = year;
         this.model = model;
         this.rank = rank;
-        this.cordX=cordX;
-        this.cordY=cordY;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
+    }
+
+    public void setRent(List<Rent> rent) {
+        this.rent = rent;
     }
 
     public int getYear() {
@@ -75,19 +90,4 @@ public class Car {
         return id;
     }
 
-    public Double getCordX() {
-        return cordX;
-    }
-
-    public void setCordX(Double cordX) {
-        this.cordX = cordX;
-    }
-
-    public Double getCordY() {
-        return cordY;
-    }
-
-    public void setCordY(Double cordY) {
-        this.cordY = cordY;
-    }
 }

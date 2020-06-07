@@ -7,8 +7,9 @@ public class ListOfFilters {
 
         private String model;
         private String brand;
-        private int min;
-        private int max;
+        private Long officeId;
+        private Integer min;
+        private Integer max;
         private java.sql.Date rentDate;
         private java.sql.Date  returnDate;
 
@@ -20,12 +21,16 @@ public class ListOfFilters {
         return brand;
     }
 
-    public int getMin() {
+    public Integer getMin() {
         return min;
     }
 
-    public int getMax() {
+    public Integer getMax() {
         return max;
+    }
+
+    public Long getOfficeId() {
+        return officeId;
     }
 
     public java.sql.Date  getRentDate() {
