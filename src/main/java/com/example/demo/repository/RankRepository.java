@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface RankRepository extends CrudRepository<Rank, Long> {
 
     Optional<Rank> findByName(String name);
+
     Optional<Rank> findById(long id);
 }

@@ -11,7 +11,7 @@ public class RentService {
     @Autowired
     RentRepository rentRepository;
 
-    public void save(Rent rent){
+    public void save(Rent rent) {
         rentRepository.save(rent);
     }
 }

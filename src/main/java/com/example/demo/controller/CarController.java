@@ -1,25 +1,22 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.ResponseStatus.ResponseStatus;
 import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.exceptions.ObjectAlreadyExistsException;
 import com.example.demo.exceptions.ObjectNotFoundException;
-import com.example.demo.service.CarService;
 import com.example.demo.model.*;
+import com.example.demo.model.dao.ListOfFilters;
+import com.example.demo.model.dao.ResponseStatus;
 import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.RentRepository;
+import com.example.demo.service.CarService;
 import com.example.demo.validator.RentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -28,27 +25,27 @@ import java.util.List;
 @RestController
 public class CarController {
 
-    @Autowired
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
+    private final RentRepository rentRepository;
+    private final RentValidator rentValidator;
+    private final CarService carService;
 
     @Autowired
-    private RentRepository rentRepository;
+    public CarController(CarRepository carRepository, RentRepository rentRepository, RentValidator rentValidator, CarService carService) {
+        this.carRepository = carRepository;
+        this.rentRepository = rentRepository;
+        this.rentValidator = rentValidator;
+        this.carService = carService;
+    }
 
-    @Autowired
-    private RentValidator rentValidator;
-
-
-    @Autowired
-    private CarService carService;
-
-    @RequestMapping(method= RequestMethod.POST,value="/newcar")
-    public ResponseStatus addNewCar(@RequestBody Car newCar)  {
-        try{
+    @RequestMapping(method = RequestMethod.POST, value = "/newcar")
+    public ResponseStatus addNewCar(@RequestBody Car newCar) {
+        try {
             carService.addNewObject(newCar);
         } catch (ObjectAlreadyExistsException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car with given license already exists.", exception);
         } catch (ObjectNotFoundException exception) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Model, brand or rank does not exists.",exception);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Model, brand or rank does not exists.", exception);
         } catch (InvalidDataException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input", exception);
         }
@@ -56,8 +53,8 @@ public class CarController {
     }
 
 
-    @RequestMapping(method= RequestMethod.POST,value="/rent")
-    public ResponseStatus rent(@RequestBody Rent rent){
+    @RequestMapping(method = RequestMethod.POST, value = "/rent")
+    public ResponseStatus rent(@RequestBody Rent rent) {
         try {
             this.rentValidator.validate(rent);
         } catch (InvalidDataException e) {
@@ -80,7 +77,7 @@ public class CarController {
                 Join<Model, Brand> brand = model.join("brand");
                 Join<Car, Rank> rank = root.join("rank");
                 Join<Car, Rent> rent = root.join("rent", JoinType.LEFT);
-                Join<Car,Office> office = root.join("office");
+                Join<Car, Office> office = root.join("office");
 
                 final List<Predicate> predicates = new ArrayList<>();
 

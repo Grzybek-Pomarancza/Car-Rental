@@ -1,20 +1,31 @@
 package com.example.demo.model;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity(name = "ADDRESSES")
 public class Address {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String street;
     private String number;
     private String code;
     private String city;
 
-    public Address() {}
+    public Address() {
+    }
+
+    public Address(Address address) {
+        this.street = address.getStreet();
+        this.number = address.getNumber();
+        this.code = address.getCode();
+        this.city = address.getCity();
+    }
 
     public Address(String street, String number, String code, String city) {
         this.street = street;
@@ -26,7 +37,7 @@ public class Address {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%d, street='%s',number=%d , code='%s', city='%s']",
+                "Customer[id=%d, street='%s',number=%s , code='%s', city='%s']",
                 id, street, number, code, city);
     }
 

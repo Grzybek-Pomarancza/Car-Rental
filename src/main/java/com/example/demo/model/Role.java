@@ -9,11 +9,12 @@ import javax.persistence.Id;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
 
-    public Role(){}
+    public Role() {
+    }
 
     public Role(String name) {
         this.name = name;

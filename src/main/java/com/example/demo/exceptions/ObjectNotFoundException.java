@@ -1,4 +1,6 @@
 package com.example.demo.exceptions;
 
-public class ObjectNotFoundException  extends Exception  {
+public class ObjectNotFoundException extends RuntimeException {
+    public ObjectNotFoundException() {
+    }
 }

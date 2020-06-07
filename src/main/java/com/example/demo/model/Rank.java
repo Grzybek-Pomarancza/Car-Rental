@@ -1,4 +1,5 @@
 package com.example.demo.model;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,13 +9,14 @@ import javax.persistence.Id;
 public class Rank {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private Integer deposit;
     private Integer price;
 
-    public Rank(){}
+    public Rank() {
+    }
 
     public Rank(String name, int deposit, int price) {
         this.name = name;
