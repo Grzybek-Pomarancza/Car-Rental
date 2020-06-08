@@ -1,7 +1,6 @@
 package com.example.demo.model.dao;
 
 import com.sun.xml.fastinfoset.algorithm.IntegerEncodingAlgorithm;
-
 import java.sql.Date;
 
 public class ListOfFilters {
@@ -57,11 +56,13 @@ public class ListOfFilters {
         return brand;
     }
 
+
     public Integer getMin() {
         return min;
     }
 
     public Integer getMax() {
+
         return max;
     }
 
