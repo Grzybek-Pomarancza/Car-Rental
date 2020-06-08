@@ -4,10 +4,7 @@ package com.example.demo.controller;
 import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.exceptions.ObjectAlreadyExistsException;
 import com.example.demo.exceptions.ObjectNotFoundException;
-import com.example.demo.model.Brand;
-import com.example.demo.model.Car;
-import com.example.demo.model.Rank;
-import com.example.demo.model.Rent;
+import com.example.demo.model.*;
 import com.example.demo.model.dao.ListOfFilters;
 import com.example.demo.model.dao.ResponseStatus;
 import com.example.demo.repository.CarRepository;
@@ -80,9 +77,12 @@ public class CarController {
                 Join<Model, Brand> brand = model.join("brand");
                 Join<Car, Rank> rank = root.join("rank");
                 Join<Car, Rent> rent = root.join("rent", JoinType.LEFT);
+                Join<Car, Office> office = root.join("office");
 
                 final List<Predicate> predicates = new ArrayList<>();
 
+                if (filter.getOfficeId() != null)
+                    predicates.add(criteriaBuilder.equal(office.get("id"), filter.getOfficeId()));
                 if (filter.getModel() != null)
                     predicates.add(criteriaBuilder.equal(model.get("name"), filter.getModel()));
                 if (filter.getBrand() != null)

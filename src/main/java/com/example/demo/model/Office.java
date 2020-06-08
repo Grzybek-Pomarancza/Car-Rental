@@ -3,7 +3,8 @@ package com.example.demo.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "OFFICE")
+@Entity(name = "OFFICES")
+
 public class Office {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
