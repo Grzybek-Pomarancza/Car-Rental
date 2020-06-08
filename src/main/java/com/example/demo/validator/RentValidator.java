@@ -13,21 +13,17 @@ import org.springframework.stereotype.Component;
 public class RentValidator {
 
     private final RentCarValidator rentCarValidator;
-    private final RentUserValidator rentUserValidator;
     private final RentDateValidator rentDateValidator;
 
     @Autowired
     public RentValidator(RentCarValidator rentCarValidator,
-                         RentUserValidator rentUserValidator,
                          RentDateValidator rentDateValidator){
         this.rentCarValidator=rentCarValidator;
         this.rentDateValidator=rentDateValidator;
-        this.rentUserValidator=rentUserValidator;
     }
 
     public void validate(Rent rent) throws InvalidDataException {
         rentCarValidator.validate(rent);
-        rentUserValidator.validate(rent);
         rentDateValidator.validate(rent);
     }
 }

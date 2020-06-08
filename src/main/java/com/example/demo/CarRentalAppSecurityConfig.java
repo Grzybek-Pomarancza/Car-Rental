@@ -15,9 +15,10 @@ public class CarRentalAppSecurityConfig extends WebSecurityConfigurerAdapter {
             "/resources/**",
             "/registration",
             "/filters",
-            "/rent",
             "/brand",
-            "/test2"
+            "/test2",
+            "/officesAll",
+            "/carsInOffice/*"
             // other public endpoints of your API may be appended to this array
     };
     @Override
@@ -29,8 +30,8 @@ public class CarRentalAppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/test1").authenticated()
-                .anyRequest().authenticated()
+                .antMatchers("/test1", "/rent").authenticated()
+                .anyRequest().permitAll()
                 .and().addFilter(new AuthorizationFilter(authenticationManager()))
                 .csrf().disable();
     }

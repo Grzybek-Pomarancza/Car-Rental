@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class Office {
     private String name;
     private Double cordX;
     private Double cordY;
+    @JsonIgnore
     @OneToMany(mappedBy = "office")
     private List<Car> cars;
     @ManyToOne(cascade = CascadeType.ALL)

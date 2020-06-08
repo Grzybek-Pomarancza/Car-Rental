@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.exceptions.CarNotAvailableException;
 import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.exceptions.ObjectAlreadyExistsException;
 import com.example.demo.exceptions.ObjectNotFoundException;
@@ -9,11 +10,13 @@ import com.example.demo.model.dao.ListOfFilters;
 import com.example.demo.model.dao.ResponseStatus;
 import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.RentRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.CarService;
 import com.example.demo.validator.RentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,13 +32,15 @@ public class CarController {
     private final RentRepository rentRepository;
     private final RentValidator rentValidator;
     private final CarService carService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CarController(CarRepository carRepository, RentRepository rentRepository, RentValidator rentValidator, CarService carService) {
+    public CarController(CarRepository carRepository, RentRepository rentRepository, RentValidator rentValidator, CarService carService, UserRepository userRepository) {
         this.carRepository = carRepository;
         this.rentRepository = rentRepository;
         this.rentValidator = rentValidator;
         this.carService = carService;
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/newcar")
@@ -57,11 +62,18 @@ public class CarController {
     public ResponseStatus rent(@RequestBody Rent rent) {
         try {
             this.rentValidator.validate(rent);
+            String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+            rent.setCar(carRepository.findById(rent.getCar().getId()).orElseThrow(ObjectNotFoundException::new));
+            rent.setUser(userRepository.findByEmail(email).orElseThrow(ObjectNotFoundException::new));
+            if (rentRepository.getRentForCarsInData(rent.getRentDate(),rent.getReturnDate(),rent.getCar().getId()).size()>0)
+                throw new CarNotAvailableException();
+            rentRepository.save(rent);
+            return new ResponseStatus("Successful rent.");
         } catch (InvalidDataException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input", e);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input");
+        } catch (CarNotAvailableException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is not available in this Data");
         }
-        rentRepository.save(rent);
-        return new ResponseStatus("Successful rent.");
     }
 
 
@@ -87,9 +99,9 @@ public class CarController {
                     predicates.add(criteriaBuilder.equal(model.get("name"), filter.getModel()));
                 if (filter.getBrand() != null)
                     predicates.add(criteriaBuilder.equal(brand.get("name"), filter.getBrand()));
-                if (filter.getMin() != 0)
+                if (filter.getMin() != null)
                     predicates.add(criteriaBuilder.ge(rank.get("price"), filter.getMin()));
-                if (filter.getMax() != 0)
+                if (filter.getMax() != null)
                     predicates.add(criteriaBuilder.le(rank.get("price"), filter.getMax()));
                 if ((filter.getRentDate() != null) && (filter.getReturnDate() != null)) {
 

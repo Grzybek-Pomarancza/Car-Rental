@@ -9,7 +9,7 @@ import java.util.Calendar;
 public class RentDateValidator {
 
     public void validate(Rent rent) throws InvalidDataException {
-        if (!(rent.getRentDate() instanceof java.sql.Date) || !(rent.getReturnDate() instanceof java.sql.Date) ) {
+        if (rent.getRentDate() == null || rent.getReturnDate() == null) {
             throw new InvalidDataException();
         }
         java.sql.Date rentDate = rent.getRentDate();
