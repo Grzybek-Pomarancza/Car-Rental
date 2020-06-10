@@ -7,6 +7,7 @@ import com.example.demo.exceptions.ObjectAlreadyExistsException;
 import com.example.demo.exceptions.ObjectNotFoundException;
 import com.example.demo.model.*;
 import com.example.demo.model.dao.ListOfFilters;
+import com.example.demo.model.dao.PriceTransfer;
 import com.example.demo.model.dao.ResponseStatus;
 import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.RentRepository;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.criteria.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +75,30 @@ public class CarController {
         } catch (InvalidDataException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input");
         } catch (CarNotAvailableException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is not available in this Data");
+        }catch (ObjectNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car not found");
+        }
+    }
+    @GetMapping("/calculate")
+    public PriceTransfer calculate(@RequestBody Rent rent){
+        try {
+            rentValidator.validate(rent);
+            rent.setCar(carRepository.findById(rent.getCar().getId()).orElseThrow(ObjectNotFoundException::new));
+            if (rentRepository.getRentForCarsInData(rent.getRentDate(),rent.getReturnDate(),rent.getCar().getId()).size()>0)
+                throw new CarNotAvailableException();
+            int days= ((int) ChronoUnit.DAYS.between(LocalDate.parse(rent.getRentDate().toString()), LocalDate.parse(rent.getReturnDate().toString())));
+            int price=rent.getCar().getRank().getPrice();
+            int deposit=rent.getCar().getRank().getPrice();
+            PriceTransfer priceTransfer=new PriceTransfer();
+            priceTransfer.setDeposit(deposit);
+            priceTransfer.setPrice(price*days);
+            return priceTransfer;
+        } catch (InvalidDataException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input");
+        }catch (ObjectNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car not found");
+        }catch (CarNotAvailableException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is not available in this Data");
         }
     }
